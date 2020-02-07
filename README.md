@@ -85,7 +85,7 @@ A demo of the pipeline can be executed with the `demo_main.m` run code and the f
 
 `demo_main.m`
 
-This master run code defines the workflow of the analysis. Modify the variables at the top with information relevant to your dataset (e.g., path to `.txt` files, number of runs). 
+This master run code defines the workflow of the analysis. Modify the variables at the top with information relevant to your dataset (e.g., path to `.txt` files, number of runs). With the Parallel Computing Toolbox, 5 participants, 1 run with 900 timepoints, and 100 requested t-SNE repetitions, tic/toc returned an elapsed time of 6.74 minutes to run the full pipeline described above and return transition rate. 
 
 ## Network Representation
 
