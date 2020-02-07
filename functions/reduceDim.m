@@ -1,4 +1,4 @@
-%%  [result, subjectIDs] = reduceDim(pathtofolder, runs, dimension, its)
+%%  [result, subjectIDs] = reduceDim(pathtofolder, runs, its)
 %
 %   This function takes network rep timeseries data and transforms it 
 %   to the t-SNE 2D state space. It will check whether parfor is available
@@ -8,9 +8,7 @@
 %       - filepath: 
 %           String path to folder containing each participant folder. 
 %       - num_runs:
-%           Number of expected runs for each participant.
-%       - dim: (default 2)
-%           Desired reduced dimensionality (2 or 3). 
+%           Number of expected runs for each participant. 
 %       - its: (default 10)
 %           Number of repetitions of t-SNE that should be carried out.
 %
@@ -26,7 +24,7 @@
 
 %%  BEGIN
 
-function [reducedData, subjID] = reduceDim(filepath, num_runs, dim, its)
+function [reducedData, subjID] = reduceDim(filepath, num_runs, its)
 
     % Set parameters
     if ~(exist(filepath, 'dir'))
@@ -38,9 +36,6 @@ function [reducedData, subjID] = reduceDim(filepath, num_runs, dim, its)
         error('You did not specify how many runs for each participant.')
     else
         r = num_runs;
-    end
-    if ~(exist('dim', 'var'))
-        dim = 2;
     end
     if ~(exist('its', 'var'))
         its = 10;
@@ -65,7 +60,7 @@ function [reducedData, subjID] = reduceDim(filepath, num_runs, dim, its)
                     smoothed = reshape(preshape, total_time, []); 
                     if its > 1 % handling if there's only 1 executed
                         for rep = 1:its
-                            tSNE_out = tsne(smoothed, 'NumDimensions', dim, 'Perplexity', 30);
+                            tSNE_out = tsne(smoothed, 'NumDimensions', 2, 'Perplexity', 30);
                             reducedData{i,run}(its,:,:) = tSNE_out;
                         end
                     else
