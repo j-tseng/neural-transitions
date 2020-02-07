@@ -9,7 +9,7 @@ Can we identify the flights and perches of thought (James, 1890) directly from t
 
 ## System Requirements
 
-This pipeline was originally developed on MATLAB (r2017a) and run on a Linux server. If the Parallel Computing Toolbox is available to you, then `parfor` is used to process multiple participants' data at once in various segments. No custom/non-standard hardware was used.
+This pipeline was originally developed on MATLAB (r2017a) and run on a Linux server. If the Parallel Computing Toolbox is available to you, then `parfor` is used to process multiple participants' data at once in the first reducing dimensionality step. No custom/non-standard hardware was used.
 
 ## Installation Guide
 
