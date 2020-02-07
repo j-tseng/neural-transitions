@@ -1,5 +1,3 @@
-# Neural Transitions
-
 Can we identify the flights and perches of thought (James, 1890) directly from the brain? We showed that the network transition timepoints identified by this pipeline are aligned to high-level cognitive state changes and suggest that characterizing these transitions is a method to characterize mentation (i.e., the act of thinking) directly from neural signal [(Tseng & Poppenk, 2019)](https://www.biorxiv.org/content/10.1101/576298v4). The following pipeline will take multidimensional timeseries data, use a non-linear dimensionality reduction technique (t-SNE) to project the high dimensional data onto a two-dimensional state space, and identify potential jumps of interest from this reduced space. 
 
 - [System Requirements](#system-requirements)
