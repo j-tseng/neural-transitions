@@ -17,12 +17,63 @@ Download this function library and ensure that the path to its folder is visible
 
 ## How to Use
 
-The following section lays out the pipeline, including expected input/outputs and a high-level description of the steps carried out in each function. If you are looking for how to obtain the 15-network representation of brain activity from your 4D functional data, see the [Appendix A: Network Representation](#Appendix-A:-Network-Representation) section at the bottom. 
+The following section provides pseudocode for the steps carried out in each function. If you are looking for how to obtain the 15-network representation of brain activity from your 4D functional data, see the [Network Representation](#network-representation) section at the end of this README. The code enclosed here assumes that you have already generated network representation .txt files from FSL's dual regression function.
 
 ### `reduceDim.m`
+1. generate cell array of subject IDs based on the data folder
+2. for each participant
+   + for each run
+     + load the .txt file containing their network representation data (time x 15 networks)
+     + apply temporal smoothing with a span of 5 TRs
+     + for the requested number of repetitions
+       + execute t-SNE to reduce dimensionality to 2
+       + save this 2D output
+3. return: 
+   + reducedData: a (num_participants x num_runs) cell array
+     + each cell contains a matrix of shape `num_iterations x num_timepoints x 2`
+   + subjID: a cell array containing the subject IDs, useful to carry forward
+   
 ### `jumpAnalyzer.m`
-### `analyzeTrajectory.m`
++ Input = output of reduceDim. 
+1. for each run
+   + for each participant
+      + for each iteration
+         + calculate the Mahalanobis distance between consecutive timepoints
+      + save the mean step distance vector across repeated iterations
+2. return:
+   + distance: a cell array with shape (1 x num_runs), where each cell contains a matrix with compiled mean step distance vectors across participants of shape (num_participants x num_timepoints)
+   
 ### `findManyPks.m`
++ Input = output of jumpAnalyzer
+1. if no minimum peak prominence (MPP) value has been specified, use the 80th percentile step distance value
+2. if no stability width threshold has been specified, use 10 TRs
+3. for each run
+   + identify transitions 
+   + identify meta-stable timepoints
+4. return:
+   + pks: a struct with a separate field for each run
+      + pks.runX.idx: cell array of length (num_participants), where each cell contains an array of values associated to a transition timepoint
+      + pks.runX.bin: binary matrix of size (num_participants x num_timepoints) where 1s indicate a transition timepoint, 0 otherwise
+      + pks.runX.base_idx and pks.runX.base_bin: analogs of the above, but with the meta-stable timepoints
+   
+### `analyzeTrajectory.m`
++ Input = pks output from findManyPks
+1. for each run
+   + count up the number of transitions
+   + divide by the time elapsed in minutes
+2. return:
+   + array of shape (num_participants x num_runs) containing transition rate per minute
+
+### `groupAlign.m`
+If your data is task-based and you wish to calculate the similarity between participants' step distance vectors, use this code. 
++ Input = mean step distance vectors from jumpCalculator
+1. for each run
+   + for each participant
+     + isolate their mean step distance vector
+     + calculate the median step distance vector across all _other_ participants
+     + take the correlation between the individual and group step distance vectors
+2. return:
+   + array of shape (num_participants x num_runs) containing conformity for each run
 
 ## Demo
 
@@ -32,7 +83,7 @@ A demo of the pipeline can be executed using with the `main_demo.m` run code and
 
 This master run code defines the workflow of the analysis. Modify the variables at the top with information relevant to your dataset (e.g., path to `.txt` files, number of runs). 
 
-## Appendix A: Network Representation
+## Network Representation
 
 Should you wish to transform fMRI data into the same network space as in our paper, you will require:
 + Spatial maps from the Human Connectome Project (HCP) that are the output of group-ICA and group-PCA on the 3T resting state dataset
