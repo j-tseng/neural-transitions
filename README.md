@@ -33,8 +33,8 @@ The following section provides pseudocode for the steps carried out in each func
      + each cell contains a matrix of shape `num_iterations x num_timepoints x 2`
    + subjID: a cell array containing the subject IDs, useful to carry forward
    
-### `jumpAnalyzer.m`
-+ Input = output of reduceDim. 
+### `jumpCalculator.m`
+0. Input = output of reduceDim. 
 1. for each run
    + for each participant
       + for each iteration
@@ -44,7 +44,7 @@ The following section provides pseudocode for the steps carried out in each func
    + distance: a cell array with shape (1 x num_runs), where each cell contains a matrix with compiled mean step distance vectors across participants of shape (num_participants x num_timepoints)
    
 ### `findManyPks.m`
-+ Input = output of jumpAnalyzer
+0. Input = output of jumpAnalyzer
 1. if no minimum peak prominence (MPP) value has been specified, use the 80th percentile step distance value
 2. if no stability width threshold has been specified, use 10 TRs
 3. for each run
@@ -57,7 +57,7 @@ The following section provides pseudocode for the steps carried out in each func
       + pks.runX.base_idx and pks.runX.base_bin: analogs of the above, but with the meta-stable timepoints
    
 ### `analyzeTrajectory.m`
-+ Input = pks output from findManyPks
+0. Input = pks output from findManyPks
 1. for each run
    + count up the number of transitions
    + divide by the time elapsed in minutes
@@ -66,7 +66,7 @@ The following section provides pseudocode for the steps carried out in each func
 
 ### `groupAlign.m`
 If your data is task-based and you wish to calculate the similarity between participants' step distance vectors, use this code. 
-+ Input = mean step distance vectors from jumpCalculator
+0. Input = mean step distance vectors from jumpCalculator
 1. for each run
    + for each participant
      + isolate their mean step distance vector
