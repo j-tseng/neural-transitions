@@ -2,7 +2,7 @@
 %  Use the structure here to execute the pipeline on your data.
 
 % Set up some inputs
-mainFolder = 'demo_data/'; % put in the filepath to the data
+mainFolder = 'path/to/demo/demo_data/'; % put in the filepath to the data
 num_runs = 1; % specify number of runs
 its = 5; % how many dimensions in resulting meta-state space?
 
