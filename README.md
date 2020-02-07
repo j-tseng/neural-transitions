@@ -30,7 +30,7 @@ The following section provides pseudocode for the steps carried out in each func
        + save this 2D output
 3. return: 
    + reducedData: a (num_participants x num_runs) cell array
-     + each cell contains a matrix of shape `num_iterations x num_timepoints x 2`
+     + each cell contains a matrix of shape (num_iterations x num_timepoints x 2)
    + subjID: a cell array containing the subject IDs, useful to carry forward
    
 `jumpCalculator.m`
