@@ -19,12 +19,20 @@ Download this function library and ensure that the path to its folder is visible
 
 The following section lays out the pipeline, including expected input/outputs and a high-level description of the steps carried out in each function. If you are looking for how to obtain the 15-network representation of brain activity from your 4D functional data, see the [Appendix A: Network Representation](#Appendix-A:-Network-Representation) section at the bottom. 
 
-+ `reduceDim.m`:
-+ `jumpAnalyzer.m`:
-+ `analyzeTrajectory.m`:
-+ `findManyPks.m`:
+### `reduceDim.m`
+### `jumpAnalyzer.m`
+### `analyzeTrajectory.m`
+### `findManyPks.m`
 
-## Appendix-A:-Network-Representation
+## Demo
+
+A demo of the pipeline can be executed using with the `main_demo.m` run code and the five simulated participant data found in the `demo` folder. 
+
+### `main.m`
+
+This master run code defines the workflow of the analysis. Modify the variables at the top with information relevant to your dataset (e.g., path to `.txt` files, number of runs). 
+
+## Appendix A: Network Representation
 
 Should you wish to transform fMRI data into the same network space as in our paper, you will require:
 + Spatial maps from the Human Connectome Project (HCP) that are the output of group-ICA and group-PCA on the 3T resting state dataset
