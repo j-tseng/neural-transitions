@@ -61,7 +61,7 @@ function [reducedData, subjID] = reduceDim(filepath, num_runs, its)
                     if its > 1 % handling if there's only 1 executed
                         for rep = 1:its
                             tSNE_out = tsne(smoothed, 'NumDimensions', 2, 'Perplexity', 30);
-                            reducedData{i,run}(its,:,:) = tSNE_out;
+                            reducedData{i,run}(rep,:,:) = tSNE_out;
                         end
                     else
                         tSNE_out = tsne(smoothed, 'NumDimensions', dim, 'Perplexity', 30);
